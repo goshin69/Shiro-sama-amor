@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Mirian 💖</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #ffafbd, #ffc3a0);
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 50px;
+            overflow: hidden;
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.3);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+        
+        h1 {
+            color: #ff6b8b;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        
+        .message {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #555;
+            margin: 20px 0;
+        }
+        
+        .heart {
+            color: #ff6b8b;
+            font-size: 2em;
+            animation: pulse 1.5s infinite;
+        }
+        
+        button {
+            background: #ff6b8b;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.3s;
+        }
+        
+        button:hover {
+            transform: scale(1.1);
+            background: #ff4d7d;
+        }
+        
+        .hidden-message {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff0f5;
+            border-radius: 15px;
+            border: 2px dashed #ff6b8b;
+        }
+        
+        .music-player {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            border: 2px solid #ff6b8b;
+        }
+        
+        .music-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .music-btn {
+            padding: 10px 20px;
+            font-size: 1em;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+        
+        /* Partículas de fondo */
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Para Mi Mirian hermosa 💕</h1>
+        
+        <div class="message">
+            <p>Desde que llegaste a mi vida, todo es más bonito...</p>
+            <p>Eres la luz que ilumina mis días 🌟</p>
+            <p>Y la razón por la que mi corazón sonríe 😊</p>
+        </div>
+        
+        <div class="heart">💖</div>
+        
+        <!-- Control de Música -->
+        <div class="music-player">
+            <h3>🎵 Nuestra Canción Especial 🎵</h3>
+            <audio id="loveSong" loop>
+                <source src="Die With A Smile.mp3" type="audio/mpeg">
+                Tu navegador no soporta el elemento de audio.
+            </audio>
+            <div class="music-controls">
+                <button class="music-btn" onclick="playMusic()">▶️ Reproducir</button>
+                <button class="music-btn" onclick="pauseMusic()">⏸️ Pausar</button>
+                <button class="music-btn" onclick="stopMusic()">⏹️ Detener</button>
+            </div>
+            <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
+                💡 Sugerencia: Reproduce la música mientras ves el mensaje
+            </p>
+        </div>
+        
+        <button onclick="showMessage()">Haz clic para una sorpresa</button>
+        <button onclick="showFlowers()">¡Flores para ti! 🌸</button>
+        <button onclick="createRomanticScene()">✨ Escena Romántica ✨</button>
+        
+        <div id="secretMessage" class="hidden-message">
+            <h3>Mi Mensaje Especial:</h3>
+            <p id="dynamicMessage">Cargando nuestro amor... 💘</p>
+        </div>
+    </div>
+
+    <script>
+        // Array de mensajes románticos
+        const messages = [
+            "Eres la persona más especial de mi vida 💕",
+            "Tu sonrisa es mi favorita vista 🌸",
+            "Cada momento contigo es un tesoro 💎",
+            "Te amo más de lo que las palabras pueden decir 📝",
+            "Eres mi sueño hecho realidad 🌙",
+            "Mi corazón late al ritmo de tu nombre 💓",
+            "Eres la razón por la que creo en el amor ✨",
+            "Contigo quiero envejecer... día a día, risa a risa 🌅",
+            "Eres mi persona favorita en todo el mundo 🌍",
+            "Tu amor es el mejor regalo que la vida me ha dado 🎁"
+        ];
+
+        const loveSong = document.getElementById('loveSong');
+        let heartsInterval;
+
+        function playMusic() {
+            loveSong.play().catch(e => {
+                alert("Por favor haz clic en 'Reproducir' para iniciar la música 💖");
+            });
+        }
+
+        function pauseMusic() {
+            loveSong.pause();
+        }
+
+        function stopMusic() {
+            loveSong.pause();
+            loveSong.currentTime = 0;
+        }
+
+        function showMessage() {
+            const secretMessage = document.getElementById('secretMessage');
+            const dynamicMessage = document.getElementById('dynamicMessage');
+            
+            // Mensaje aleatorio
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            dynamicMessage.textContent = randomMessage;
+            
+            secretMessage.style.display = 'block';
+            
+            // Efecto de corazones
+            createHearts(20);
+            
+            // Reproducir música si no está sonando
+            if (loveSong.paused) {
+                playMusic();
+            }
+        }
+
+        function showFlowers() {
+            createFlowers(25);
+            playMusic();
+        }
+
+        function createRomanticScene() {
+            // Crear muchas partículas románticas
+            createHearts(30);
+            createFlowers(20);
+            createParticles(15);
+            playMusic();
+            
+            // Mostrar mensaje especial
+            setTimeout(() => {
+                alert("💝 Eres lo mejor que me ha pasado... Te amo 💝");
+            }, 1000);
+        }
+
+        function createHearts(count) {
+            const heartTypes = ['💖', '💕', '💓', '💗', '💘', '💝', '❤️', '🧡', '💛', '💚', '💙', '💜'];
+            
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+                    heart.style.position = 'absolute';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = '-50px';
+                    heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                    heart.style.zIndex = '1';
+                    heart.style.animation = `fall ${Math.random() * 4 + 3}s linear forwards`;
+                    document.body.appendChild(heart);
+                    
+                    // Remover después de la animación
+                    setTimeout(() => {
+                        if (heart.parentNode) {
+                            heart.parentNode.removeChild(heart);
+                        }
+                    }, 7000);
+                }, i * 150);
+            }
+        }
+
+        function createFlowers(count) {
+            const flowers = ['🌸', '🌹', '💐', '🌺', '🌷', '🥀', '🌼', '🪷', '💮', '🏵️'];
+            
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const flower = document.createElement('div');
+                    flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+                    flower.style.position = 'absolute';
+                    flower.style.left = Math.random() * 100 + 'vw';
+                    flower.style.top = '-50px';
+                    flower.style.fontSize = (Math.random() * 25 + 15) + 'px';
+                    flower.style.zIndex = '1';
+                    flower.style.animation = `fall ${Math.random() * 5 + 4}s linear forwards`;
+                    document.body.appendChild(flower);
+                    
+                    setTimeout(() => {
+                        if (flower.parentNode) {
+                            flower.parentNode.removeChild(flower);
+                        }
+                    }, 9000);
+                }, i * 200);
+            }
+        }
+
+        function createParticles(count) {
+            const symbols = ['✨', '🌟', '⭐', '★', '☆', '✧', '♥', '♡'];
+            
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(particle);
+                
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.parentNode.removeChild(particle);
+                    }
+                }, 8000);
+            }
+        }
+
+        // Mensaje inicial automático
+        setTimeout(() => {
+            alert("💖 Hola mi amor, esta página es solo para ti 💖");
+        }, 500);
+
+        // Corazones flotantes de fondo continuos
+        heartsInterval = setInterval(() => createHearts(2), 2000);
+
+        // Detener la animación cuando la página no esté visible
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                clearInterval(heartsInterval);
+            } else {
+                heartsInterval = setInterval(() => createHearts(2), 2000);
+            }
+        });
+    </script>
+</body>
+</html>
